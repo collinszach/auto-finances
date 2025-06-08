@@ -192,3 +192,42 @@ cython_debug/
 #  refer to https://docs.cursor.com/context/ignore-files
 .cursorignore
 .cursorindexingignore
+.csv
+
+# Virtual environment config
+pyvenv.cfg
+
+# Ollama model cache
+.ollama/
+ollama/
+
+# rclone config
+rclone.conf
+
+# Custom financial pipeline artifacts
+*.db
+*.sqlite
+*.parquet
+*.feather
+*.log
+*.tmp
+
+# VS Code (uncomment to ignore fully)
+.vscode/
+
+# JetBrains IDEs (if you use PyCharm)
+.idea/
+
+# System-specific files
+.DS_Store
+Thumbs.db
+
+# Backup or temporary files
+*.bak
+*.swp
+*.swo
+*~
+
+# Git conflict files
+*.orig
+*.rej
