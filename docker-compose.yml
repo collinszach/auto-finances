@@ -1,0 +1,47 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres:16
+    container_name: auto-finances-db
+    restart: unless-stopped
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5432:5432"
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    container_name: auto-finances-api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./app:/app
+    env_file:
+      - .env
+    depends_on:
+      - db
+    restart: always
+
+  watcher:
+    build:
+      context: .
+      dockerfile: Dockerfile.watcher
+    container_name: auto-finances-watcher
+    volumes:
+      - ./app:/app
+      - ${HOME}/Finances/Documents:/data:rw
+    env_file:
+      - .env
+    depends_on:
+      - db
+    restart: always
+
+volumes:
+  postgres_data:
